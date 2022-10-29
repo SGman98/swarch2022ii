@@ -20,5 +20,21 @@ services:
     ports:
       - 3306:3306
 
+  db_client:
+    image: phpmyadmin
+    container_name: db_client
+
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: swarch2022ii
+      PMA_PASSWORD: 2022
+
+    ports:
+      - 8081:80
+
+    links:
+      - db
+
 volumes:
   swarch2022ii_db_data:
