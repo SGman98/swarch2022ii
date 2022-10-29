@@ -1,0 +1,25 @@
+version: '3.8'
+name: swarch2022ii
+
+services:
+  ms:
+    build: .
+    image: swarch2022ii_ms
+    container_name: swarch2022ii_ms
+
+    ports:
+      - 4000:4000
+
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=swarch2022ii
+      - DB_PASSWORD=2022
+      - DB_NAME=swarch2022ii_db
+      - URL=0.0.0.0:4000
+
+    links:
+      - db
+
+    depends_on:
+      - db

@@ -1,0 +1,17 @@
+version: '3.8'
+name: swarch2022ii
+
+services:
+  proxy:
+    build: .
+    image: swarch2022ii_proxy
+    container_name: swarch2022ii_proxy
+
+    ports:
+      - 80:80
+
+    links:
+      - ag
+
+    depends_on:
+      - ag

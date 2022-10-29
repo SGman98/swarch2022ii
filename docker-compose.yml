@@ -5,80 +5,26 @@ services:
 
   # ---- L1 - Data ----
   db:
-    image: mysql:5.7
-    container_name: swarch2022ii_db
-
-    environment:
-      MYSQL_ROOT_PASSWORD: 123
-      MYSQL_DATABASE: swarch2022ii_db
-      MYSQL_USER: swarch2022ii
-      MYSQL_PASSWORD: 2022
-
-    volumes:
-      - db_data:/var/lib/mysql
-
-    ports:
-      - 3306:3306
+    extends:
+      file: ./swarch2022ii_db/docker-compose.yml
+      service: db
 
   db_client:
-    image: phpmyadmin
-    container_name: db_client
-
-    ports:
-      - 8081:80
-
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      PMA_USER: swarch2022ii
-      PMA_PASSWORD: 2022
-
-    links:
-      - db
-
-    depends_on:
-      - db
+    extends:
+      file: ./swarch2022ii_db/docker-compose.yml
+      service: db_client
 
   # ---- L2 - Logic, Part 1 ----
   ms:
-    build: ./swarch2022ii_ms
-    image: swarch2022ii_ms
-    container_name: swarch2022ii_ms
-
-    ports:
-      - 4000:4000
-
-    environment:
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_USER=swarch2022ii
-      - DB_PASSWORD=2022
-      - DB_NAME=swarch2022ii_db
-      - URL=0.0.0.0:4000
-
-    links:
-      - db
-
-    depends_on:
-      - db
+    extends:
+      file: ./swarch2022ii_ms/docker-compose.yml
+      service: ms
 
   # ---- L3 - Logic, Part 2 ----
   ag:
-    build: ./swarch2022ii_ag
-    image: swarch2022ii_ag
-    container_name: swarch2022ii_ag
-
-    ports:
-      - 5000:5000
-
-    environment:
-      - MS_BASE_URL=http://ms:4000/categories
-
-    links:
-      - ms
-
-    depends_on:
-      - ms
+    extends:
+      file: ./swarch2022ii_ag/docker-compose.yml
+      service: ag
 
   # ---- L4 - Presentation ----
 
@@ -94,18 +40,9 @@ services:
       service: phpldapadmin
 
   proxy:
-    build: ./swarch2022ii_proxy
-    image: swarch2022ii_proxy
-    container_name: swarch2022ii_proxy
-
-    ports:
-      - 80:80
-
-    links:
-      - ag
-
-    depends_on:
-      - ag
+    extends:
+      file: ./swarch2022ii_proxy/docker-compose.yml
+      service: proxy
 
 volumes:
   db_data:

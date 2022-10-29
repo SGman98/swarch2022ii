@@ -1,0 +1,41 @@
+version: '3.8'
+name: swarch2022ii
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: swarch2022ii_db
+
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: swarch2022ii_db
+      MYSQL_USER: swarch2022ii
+      MYSQL_PASSWORD: 2022
+
+    volumes:
+      - db_data:/var/lib/mysql
+
+    ports:
+      - 3306:3306
+
+  db_client:
+    image: phpmyadmin
+    container_name: db_client
+
+    ports:
+      - 8081:80
+
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: swarch2022ii
+      PMA_PASSWORD: 2022
+
+    links:
+      - db
+
+    depends_on:
+      - db
+
+volumes:
+  db_data:

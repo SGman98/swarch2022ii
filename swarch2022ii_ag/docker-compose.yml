@@ -1,0 +1,20 @@
+version: '3.8'
+name: swarch2022ii
+
+services:
+  ag:
+    build: .
+    image: swarch2022ii_ag
+    container_name: swarch2022ii_ag
+
+    ports:
+      - 5000:5000
+
+    environment:
+      - MS_BASE_URL=http://ms:4000/categories
+
+    links:
+      - ms
+
+    depends_on:
+      - ms
