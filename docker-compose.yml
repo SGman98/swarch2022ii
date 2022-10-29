@@ -1,0 +1,24 @@
+version: '3.8'
+name: swarch2022ii
+
+services:
+
+  # ---- L1 - Data ----
+  db:
+    image: mysql:5.7
+    container_name: swarch2022ii_db
+
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: swarch2022ii_db
+      MYSQL_USER: swarch2022ii
+      MYSQL_PASSWORD: 2022
+
+    volumes:
+      - swarch2022ii_db_data:/var/lib/mysql
+
+    ports:
+      - 3306:3306
+
+volumes:
+  swarch2022ii_db_data:
