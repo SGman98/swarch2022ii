@@ -42,6 +42,7 @@ services:
   # ---- L2 - Logic, Part 1 ----
   ms:
     build: ./swarch2022ii_ms
+    image: swarch2022ii_ms
     container_name: swarch2022ii_ms
 
     ports:
@@ -78,6 +79,23 @@ services:
 
     depends_on:
       - ms
+  # ---- L4 - Presentation ----
+
+  # ---- L5 - Security ----
+  ldap:
+    extends:
+      file: ./swarch2022ii_ldap/docker-compose.yml
+      service: ldap
+
+  phpldapadmin:
+    extends:
+      file: ./swarch2022ii_ldap/docker-compose.yml
+      service: phpldapadmin
 
 volumes:
   db_data:
+
+  ldap_data:
+  ldap_config:
+  ldap_certs:
+  phpldapadmin_data:
