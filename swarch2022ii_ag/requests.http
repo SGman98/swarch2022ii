@@ -1,0 +1,73 @@
+@baseUrl=http://localhost:5000/graphql
+
+@categoryId={{createCategory.response.body.data.createCategory.id}}
+
+### a. Mutations (i)
+
+### 1. Crear una categoria y retornar su nombre:
+# @name createCategory
+POST {{baseUrl}} HTTP/1.1
+X-Request-Type: GraphQL
+Content-Type: application/json
+
+mutation {
+  createCategory(category: {
+    name: "Categoría Jeisson",
+    description: "Descripción - Categoría Jeisson"
+  }) {
+    id
+    name
+  }
+}
+
+### 2. Actualizar la categoría con id: 1, y retornar su id, nombre y descripción:
+POST {{baseUrl}} HTTP/1.1
+X-Request-Type: GraphQL
+Content-Type: application/json
+
+mutation {
+  updateCategory(id: {{categoryId}}, category: {
+    name: "Categoría Jeisson"
+    description: "Nueva Descripción - Categoría Jeisson"
+  }) {
+    id
+    name
+    description
+  }
+}
+
+### b. Queries
+
+### 1. Consultar únicamente el nombre de todas las categorías:
+POST {{baseUrl}} HTTP/1.1
+X-Request-Type: GraphQL
+Content-Type: application/json
+
+query {
+  allCategories {
+    name
+  }
+}
+
+### 2. Consultar el id y el nombre de la categoría con id: 1:
+POST {{baseUrl}} HTTP/1.1
+X-Request-Type: GraphQL
+Content-Type: application/json
+
+query {
+  categoryById(id: {{categoryId}}) {
+    id
+    name
+  }
+}
+
+### c. Mutations (ii)
+
+### 1. Eliminar el usuario con id: 1:
+POST {{baseUrl}} HTTP/1.1
+X-Request-Type: GraphQL
+Content-Type: application/json
+
+mutation {
+  deleteCategory(id: {{categoryId}})
+}

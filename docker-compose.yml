@@ -15,7 +15,7 @@ services:
       MYSQL_PASSWORD: 2022
 
     volumes:
-      - swarch2022ii_db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql
 
     ports:
       - 3306:3306
@@ -61,5 +61,23 @@ services:
     depends_on:
       - db
 
+  # ---- L3 - Logic, Part 2 ----
+  ag:
+    build: ./swarch2022ii_ag
+    image: swarch2022ii_ag
+    container_name: swarch2022ii_ag
+
+    ports:
+      - 5000:5000
+
+    environment:
+      - MS_BASE_URL=http://ms:4000/categories
+
+    links:
+      - ms
+
+    depends_on:
+      - ms
+
 volumes:
-  swarch2022ii_db_data:
+  db_data:
