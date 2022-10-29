@@ -24,16 +24,41 @@ services:
     image: phpmyadmin
     container_name: db_client
 
+    ports:
+      - 8081:80
+
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
       PMA_USER: swarch2022ii
       PMA_PASSWORD: 2022
 
+    links:
+      - db
+
+    depends_on:
+      - db
+
+  # ---- L2 - Logic, Part 1 ----
+  ms:
+    build: ./swarch2022ii_ms
+    container_name: swarch2022ii_ms
+
     ports:
-      - 8081:80
+      - 4000:4000
+
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=swarch2022ii
+      - DB_PASSWORD=2022
+      - DB_NAME=swarch2022ii_db
+      - URL=0.0.0.0:4000
 
     links:
+      - db
+
+    depends_on:
       - db
 
 volumes:
