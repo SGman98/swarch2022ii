@@ -79,6 +79,7 @@ services:
 
     depends_on:
       - ms
+
   # ---- L4 - Presentation ----
 
   # ---- L5 - Security ----
@@ -91,6 +92,20 @@ services:
     extends:
       file: ./swarch2022ii_ldap/docker-compose.yml
       service: phpldapadmin
+
+  proxy:
+    build: ./swarch2022ii_proxy
+    image: swarch2022ii_proxy
+    container_name: swarch2022ii_proxy
+
+    ports:
+      - 80:80
+
+    links:
+      - ag
+
+    depends_on:
+      - ag
 
 volumes:
   db_data:
