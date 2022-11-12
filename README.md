@@ -30,10 +30,10 @@ docker-compose up -d --build
 
 ### Lab 1 - Data
 
-| Container name  | Ports    | Technologies                                 |
-| --------------- | -------- | -------------------------------------------- |
-| swarch2022ii_db | 33063306 | [MySQL](https://www.mysql.com/) 🐬           |
-| db_client       | 8081:80  | [PHPMyAdmin](https://www.phpmyadmin.net/) 🐘 |
+| Container name  | Ports     | Technologies                                 |
+| --------------- | --------- | -------------------------------------------- |
+| swarch2022ii_db | 3306:3306 | [MySQL](https://www.mysql.com/) 🐬           |
+| db_client       | 8081:80   | [PHPMyAdmin](https://www.phpmyadmin.net/) 🐘 |
 
 ### Lab 2 - Logic, Part 1
 
@@ -63,13 +63,23 @@ docker-compose up -d --build
 | ldap_client        | 6443:443 | [PHPLDAPadmin](https://www.phpldapadmin.org/) 📖 |
 | swarch2022ii_proxy | 80:80    | [Nginx](https://www.nginx.com/) 📦               |
 
+### Lab 6 - Interoperability
+
+| Container name | Ports     | Technologies                                    |
+| -------------- | --------- | ----------------------------------------------- |
+| sa_bank_ss_db  | 3308:3306 | [MySQL](https://www.mysql.com/) 🐬              |
+| sa_bank_ss     | 3000:3000 | Language: [Ruby](https://www.ruby-lang.org/) 💎 |
+| sa_user_ss_db  | 3310:3306 | [MySQL](https://www.mysql.com/) 🐬              |
+| sa_user_ss     | 3010:3000 | Language: [Ruby](https://www.ruby-lang.org/) 💎 |
+
+To populate the databases there is a script in each container folder named
+`init.sql` it may be runned however you want.
+
 ### Tests
 
-There is a file with the requests for the MS in the `swarch2022ii_ms` folder with the name `requests.http`, with this you can test the microservice directly using REST.
+There are some test files to try using the [VSCode REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension.
 
-There is a file with the requests for the API in the `swarch2022ii_ag` folder with the name `requests.http`, with this you can test the API gateway using GraphQL.
-
-> You can use [VSCode REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) to run the requests
+Each folder contains a `requests.http` file with the requests to test the API.
 
 To test the proxy you may use the same file as the API gateway, but you must remove the port from the URL using the @baseUrl variable in the file.
 In the response headers you should see the `Server` header with the nginx version which means that the proxy is working
