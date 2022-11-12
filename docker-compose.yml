@@ -34,9 +34,33 @@ services:
       file: ./swarch2022ii_proxy/docker-compose.yml
       service: proxy
 
+  # ---- L6 - Interoperability ----
+  sa_user_ss_db:
+    extends:
+      file: ./sa_user_ss/docker-compose.yml
+      service: sa_user_ss_db
+
+  sa_user_ss:
+    extends:
+      file: ./sa_user_ss/docker-compose.yml
+      service: sa_user_ss
+
+  sa_bank_ss_db:
+    extends:
+      file: ./sa_bank_ss/docker-compose.yml
+      service: sa_bank_ss_db
+
+  sa_bank_ss:
+    extends:
+      file: ./sa_bank_ss/docker-compose.yml
+      service: sa_bank_ss
+
 volumes:
   db_data:
 
   ldap_data:
   ldap_config:
   ldap_certs:
+
+  sa_user_ss_db_data:
+  sa_bank_ss_db_data:

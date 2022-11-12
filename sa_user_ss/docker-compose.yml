@@ -3,7 +3,7 @@ name: swarch2022ii
 
 services:
   sa_user_ss_db:
-    image: mysql
+    image: mysql:5.7
     container_name: sa_user_ss_db
 
     ports:
@@ -15,6 +15,9 @@ services:
       MYSQL_PASSWORD: arqui
       MYSQL_DATABASE: sa_user_ss_dev
       MYSQL_HOST: sa_user_ss_db
+
+    volumes:
+      - sa_user_ss_db_data:/var/lib/mysql
 
   sa_user_ss:
     build: .
@@ -28,3 +31,6 @@ services:
 
     depends_on:
       - sa_user_ss_db
+
+volumes:
+  sa_user_ss_db_data:

@@ -1,0 +1,51 @@
+@baseUrl=http://localhost:3000/wsbanks
+
+### Get the WSDL
+GET {{baseUrl}}/wsdl HTTP/1.1
+
+### checkAccount
+POST {{baseUrl}}/action HTTP/1.1
+Content-Type: application/soap+xml
+
+<soapenv:Envelope
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:urn="urn:WashOutBank"
+>
+    <soapenv:Header/>
+    <soapenv:Body>
+        <urn:checkAccount
+            soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+        >
+            <sourceAccount xsi:type="xsd:int">1</sourceAccount>
+            <targetAccount xsi:type="xsd:int">2</targetAccount>
+            <amount xsi:type="xsd:double">500</amount>
+        </urn:checkAccount>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+
+### makeTransaction
+POST {{baseUrl}}/action HTTP/1.1
+Content-Type: application/soap+xml
+
+<soapenv:Envelope
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:urn="urn:WashOutBank"
+>
+    <soapenv:Header/>
+    <soapenv:Body>
+        <urn:makeTransaction
+            soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+        >
+            <sourceAccount xsi:type="xsd:int">1</sourceAccount>
+            <targetAccount xsi:type="xsd:int">2</targetAccount>
+            <userId xsi:type="xsd:int">1</userId>
+            <amount xsi:type="xsd:double">500</amount>
+        </urn:makeTransaction>
+    </soapenv:Body>
+</soapenv:Envelope>
+
