@@ -1,19 +1,30 @@
-version: '2'
+version: '3.8'
+name: swarch2022ii
+
 services:
   sa_bank_ss_db:
     image: mysql
+    container_name: sa_bank_ss_db
+
     ports:
-      - "3308:3306"
+      - 3308:3306
+
     environment:
       MYSQL_ROOT_PASSWORD: arqui
       MYSQL_USER: arquisoft
       MYSQL_PASSWORD: arqui
       MYSQL_DATABASE: sa_bank_ss_dev
       MYSQL_HOST: sa_bank_ss_db
+
   sa_bank_ss:
     build: .
+    image: sa_bank_ss
+    container_name: sa_bank_ss
+
     command: bash -c "sleep 40 && rm -f tmp/pids/server.pid && bundle exec rails db:migrate && bundle exec rails s -p 3000 -b '0.0.0.0'"
+
     ports:
-      - "3000:3000"
+      - 3000:3000
+
     depends_on:
       - sa_bank_ss_db

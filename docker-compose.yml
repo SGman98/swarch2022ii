@@ -9,11 +9,6 @@ services:
       file: ./swarch2022ii_db/docker-compose.yml
       service: db
 
-  db_client:
-    extends:
-      file: ./swarch2022ii_db/docker-compose.yml
-      service: db_client
-
   # ---- L2 - Logic, Part 1 ----
   ms:
     extends:
@@ -34,11 +29,6 @@ services:
       file: ./swarch2022ii_ldap/docker-compose.yml
       service: ldap
 
-  phpldapadmin:
-    extends:
-      file: ./swarch2022ii_ldap/docker-compose.yml
-      service: phpldapadmin
-
   proxy:
     extends:
       file: ./swarch2022ii_proxy/docker-compose.yml
@@ -50,4 +40,3 @@ volumes:
   ldap_data:
   ldap_config:
   ldap_certs:
-  phpldapadmin_data:
